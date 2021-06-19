@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.scss";
+import Header from "./components/Header";
+import ProductSection from "./components/ProductSection/ProductSection";
+import Sidebar from "./components/Sidebar/Sidebar";
+import { products } from "./data/products";
 
 function App() {
+  const [allProducts, setProducts] = useState(products);
+  const [sortValue, setsortValue] = useState();
+  const [filterValues, setFilterValues] = useState({
+    size: [],
+    brand: [],
+    idealFor: [],
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <div className="layout">
+        <Sidebar
+          filterValues={filterValues}
+          setFilterValues={setFilterValues}
+          allProducts={allProducts}
+          sortValue={sortValue}
+          setProducts={setProducts}
+          setsortValue={setsortValue}
+        />
+        <ProductSection
+          filterValues={filterValues}
+          allProducts={allProducts}
+          sortValue={sortValue}
+          setProducts={setProducts}
+          setsortValue={setsortValue}
+        />
+      </div>
     </div>
   );
 }
